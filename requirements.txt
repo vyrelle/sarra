@@ -1,9 +1,0 @@
-fastapi
-uvicorn[standard]
-sqlalchemy
-psycopg2-binary
-sentence-transformers
-openai
-requests
-beautifulsoup4
-python-dotenv
