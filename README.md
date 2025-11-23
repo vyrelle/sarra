@@ -10,22 +10,46 @@ RAG combines two main components: a knowledge retrieval system and a generative 
 ### User Feedback Integration
 Incorporating user feedback is essential for adaptive learning. Feedback allows the system to identify errors, outdated information, or irrelevant responses. Validated corrections can then be integrated into the knowledge base, improving the system's accuracy for future queries. This creates a self-improving AI that continuously learns from real interactions.
 
+## Proposed Solution: Intelligent Feedback Loop
+
+We propose an intelligent feedback loop for AI-powered Q&A systems that validates user input and incorporates it into the knowledge base. This real-time learning process updates vector embeddings, filters harmful or irrelevant feedback, and continuously improves response accuracy and user experience.
+
+### Feedback Collection
+- Users provide ratings on a scale of 1–5:
+  - **4–5:** Correct response; reinforces existing response patterns.
+  - **3:** Neutral; logged for monitoring without updating the knowledge base.
+  - **1–2:** Negative; if accompanied by a user-provided correction, triggers learning.
+
+### Feedback Processing
+- Each correction undergoes automatic analysis using LLM to check for:
+  - **Toxicity**
+  - **Personally Identifiable Information (PII)**
+  - **Relevance** to the original query
+- Toxic or inappropriate content is detected via classification or zero-shot techniques.
+- PII is identified through pattern matching and semantic analysis.
+- Relevance is assessed against the original question.
+
+### Integration into Knowledge Base
+- Valid corrections are stored in a **PostgreSQL** database.
+- FAISS is used for vector indexing to integrate updates into the RAG pipeline.
+- Embeddings are updated, improving retrieval for future queries.
+
+### Key Advantages
+- **Adaptability:** Learns from real user data, improving answer quality on specific topics.
+- **Safety:** Toxic, PII, and irrelevant content are filtered.
+- **Integration:** Compatible with LangChain and PGVector for easy integration into existing systems.
+
 ### System Workflow Diagrams
 
 #### 1. RAG Query Flow
 ```
 User Query --> Retriever (Vector DB) --> Retrieve Context --> LLM Generates Answer --> Return to User
 ```
-- **Retriever:** Searches the knowledge base for most relevant documents.
-- **LLM:** Generates natural language response based on retrieved context.
-- **User:** Receives answer and optionally provides feedback.
 
 #### 2. Feedback Loop
 ```
-User Feedback --> Validation (Quality, Relevance) --> Knowledge Base Update --> Retriever Adjusted --> Future Queries Improved
+User Feedback --> Validation (Toxicity, PII, Relevance) --> Knowledge Base Update --> Retriever Adjusted --> Future Queries Improved
 ```
-- Ensures that only accurate and safe corrections are incorporated.
-- Allows Sarra to learn dynamically and improve over time.
 
 ### Applications Across Industries
 - **Customer Service:** Reduces repeated mistakes, resolves issues faster, and decreases human agent workload.
