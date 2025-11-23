@@ -14,6 +14,8 @@ Incorporating user feedback is essential for adaptive learning. Feedback allows 
 
 We propose an intelligent feedback loop for AI-powered Q&A systems that validates user input and incorporates it into the knowledge base. This real-time learning process updates vector embeddings, filters harmful or irrelevant feedback, and continuously improves response accuracy and user experience.
 
+![Feedback Filtering](https://github.com/vyrelle/sarra/blob/main/images/Feedback_Filtering.png)
+
 ### Feedback Collection
 - Users provide ratings on a scale of 1–5:
   - **4–5:** Correct response; reinforces existing response patterns.
@@ -40,6 +42,7 @@ We propose an intelligent feedback loop for AI-powered Q&A systems that validate
 - **Integration:** Compatible with LangChain and PGVector for easy integration into existing systems.
 
 ### System Workflow Diagrams
+![System Architecture](https://github.com/vyrelle/sarra/blob/main/images/System.png)
 
 #### 1. RAG Query Flow
 ```
